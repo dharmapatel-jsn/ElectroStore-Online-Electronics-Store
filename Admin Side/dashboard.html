@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ElectroStore</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom Admin Styles -->
+    <link href="assets/css/admin-style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Professional Navigation -->
+    <nav class="navbar navbar-expand-lg admin-nav shadow-lg">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand nav-brand fw-bold" href="dashboard.html">
+                <i class="fas fa-bolt text-warning me-2"></i>
+                <span class="text-white">ElectroStore</span>
+                <span class="badge bg-warning text-dark ms-2 rounded-pill">Admin</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold active" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="products.html">
+                            <i class="fas fa-box me-1"></i>Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="add-product.html">
+                            <i class="fas fa-plus me-1"></i>Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="orders.html">
+                            <i class="fas fa-shopping-cart me-1"></i>Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="users.html">
+                            <i class="fas fa-users me-1"></i>Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-semibold" href="../Client Side/index.html" target="_blank">
+                            <i class="fas fa-external-link-alt me-1"></i>Visit Store
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning fw-semibold" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i>Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid bg-light min-vh-100">
+        <!-- Header Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="bg-white shadow-sm border-bottom">
+                    <div class="container-fluid py-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h1 class="h3 fw-bold text-gray-800 mb-2">
+                                    <i class="fas fa-tachometer-alt text-primary me-2"></i>
+                                    Dashboard Overview
+                                </h1>
+                                <p class="text-muted mb-0">Welcome back, Admin! Here's your store performance.</p>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="d-flex justify-content-end align-items-center gap-3">
+                                    <span class="badge bg-success fs-6 px-3 py-2">
+                                        <i class="fas fa-circle pulse me-1"></i>Online
+                                    </span>
+                                    <span class="text-muted small" id="currentDateTime"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards Section -->
+        <div class="container-fluid py-4">
+            <div class="row g-4">
+                <!-- Revenue Card -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-2 fw-semibold">Total Revenue</p>
+                                    <h3 class="fw-bold text-success mb-0" id="totalRevenue">₹1,25,000</h3>
+                                    <small class="text-success">
+                                        <i class="fas fa-arrow-up me-1"></i>+12% from last month
+                                    </small>
+                                </div>
+                                <div class="bg-success bg-opacity-10 p-3 rounded-circle">
+                                    <i class="fas fa-rupee-sign text-success fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Card -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-2 fw-semibold">Total Orders</p>
+                                    <h3 class="fw-bold text-primary mb-0" id="totalOrders">48</h3>
+                                    <small class="text-success">
+                                        <i class="fas fa-arrow-up me-1"></i>+8% from last week
+                                    </small>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                                    <i class="fas fa-shopping-cart text-primary fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Card -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-2 fw-semibold">Total Products</p>
+                                    <h3 class="fw-bold text-warning mb-0" id="totalProducts">12</h3>
+                                    <small class="text-info">
+                                        <i class="fas fa-info-circle me-1"></i>2 low stock items
+                                    </small>
+                                </div>
+                                <div class="bg-warning bg-opacity-10 p-3 rounded-circle">
+                                    <i class="fas fa-box text-warning fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Card -->
+                <div class="col-xl-3 col-md-6">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted mb-2 fw-semibold">Total Users</p>
+                                    <h3 class="fw-bold text-info mb-0" id="totalUsers">156</h3>
+                                    <small class="text-success">
+                                        <i class="fas fa-arrow-up me-1"></i>+15% new users
+                                    </small>
+                                </div>
+                                <div class="bg-info bg-opacity-10 p-3 rounded-circle">
+                                    <i class="fas fa-users text-info fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Recent Orders Section -->
+        <div class="container-fluid pb-4">
+            <div class="row g-4">
+                <!-- Quick Actions Card -->
+                <div class="col-lg-4">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-header bg-white border-0 pb-0">
+                            <h5 class="fw-bold mb-0">
+                                <i class="fas fa-bolt text-primary me-2"></i>Quick Actions
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-3">
+                                <a href="add-product.html" class="btn btn-primary btn-lg rounded-3">
+                                    <i class="fas fa-plus me-2"></i>Add New Product
+                                </a>
+                                <a href="orders.html" class="btn btn-outline-primary btn-lg rounded-3">
+                                    <i class="fas fa-eye me-2"></i>View All Orders
+                                </a>
+                                <a href="users.html" class="btn btn-outline-secondary btn-lg rounded-3">
+                                    <i class="fas fa-users me-2"></i>Manage Users
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders Card -->
+                <div class="col-lg-8">
+                    <div class="card professional-card border-0 h-100">
+                        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold mb-0">
+                                <i class="fas fa-shopping-cart text-primary me-2"></i>Recent Orders
+                            </h5>
+                            <a href="orders.html" class="btn btn-outline-primary btn-sm rounded-pill">
+                                View All <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th class="border-0 fw-semibold">Order ID</th>
+                                            <th class="border-0 fw-semibold">Customer</th>
+                                            <th class="border-0 fw-semibold">Amount</th>
+                                            <th class="border-0 fw-semibold">Status</th>
+                                            <th class="border-0 fw-semibold">Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-semibold text-primary">#ORD001</td>
+                                            <td>John Doe</td>
+                                            <td class="fw-semibold">₹1,31,999</td>
+                                            <td><span class="status-pending">Pending</span></td>
+                                            <td class="text-muted">2024-01-15</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold text-primary">#ORD002</td>
+                                            <td>Jane Smith</td>
+                                            <td class="fw-semibold">₹1,14,900</td>
+                                            <td><span class="status-completed">Completed</span></td>
+                                            <td class="text-muted">2024-01-14</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold text-primary">#ORD003</td>
+                                            <td>Mike Johnson</td>
+                                            <td class="fw-semibold">₹29,990</td>
+                                            <td><span class="status-shipped">Shipped</span></td>
+                                            <td class="text-muted">2024-01-13</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Professional Scripts -->
+    <script>
+        // Authentication check
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Professional dashboard functions
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Real-time clock
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentDateTime').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateTime();
+            setInterval(updateDateTime, 60000); // Update every minute
+            
+            // Add loading animations
+            const cards = document.querySelectorAll('.professional-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Add pulse animation for online status
+        const style = document.createElement('style');
+        style.textContent = `
+            .pulse {
+                animation: pulse 2s infinite;
+            }
+            
+            @keyframes pulse {
+                0% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+                }
+                
+                70% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+                }
+                
+                100% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

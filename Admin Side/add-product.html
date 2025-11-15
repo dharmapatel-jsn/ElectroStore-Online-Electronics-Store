@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - ElectroStore Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/admin-style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100">
+    <!-- Professional Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background: linear-gradient(135deg, #146eff 0%, #146eff 50%, #146eff 100%);">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="dashboard.html">
+                <i class="fas fa-bolt text-warning me-2 fs-4"></i>
+                <span class="text-white">ElectroStore Admin</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="products.html">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2 active" href="add-product.html">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="orders.html">
+                            <i class="fas fa-shopping-cart me-1"></i> Orders
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="users.html">
+                            <i class="fas fa-users me-1"></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="../Client Side/index.html" target="_blank">
+                            <i class="fas fa-store me-1"></i> Visit Store
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="professional-card shadow-custom border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h2 class="h4 fw-bold mb-1 text-dark">Add New Product</h2>
+                                <p class="text-muted mb-0">Create a new product in your inventory</p>
+                            </div>
+                            <div>
+                                <a href="products.html" class="btn btn-outline-secondary px-4 py-2 rounded-3">
+                                    <i class="fas fa-arrow-left me-2"></i>Back to Products
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Add Product Form -->
+        <div class="row g-4">
+            <!-- Form Section -->
+            <div class="col-12 col-xl-7">
+                <div class="professional-card shadow-custom border-0">
+                    <div class="card-header text-white border-0" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="fas fa-plus-circle me-2"></i>Product Information
+                        </h5>
+                    </div>
+                    <div class="card-body p-4" style="background: rgba(255, 255, 255, 0.95);">
+                        <form id="addProductForm" onsubmit="handleSubmit(event)">
+                            <div class="row g-4">
+                                <!-- Product Name -->
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" id="productName" name="productName" class="form-control border-2 shadow-sm" placeholder="Product Name" required style="background-color: #f8f9fa; border-color: #dee2e6;">
+                                        <label for="productName"><i class="fas fa-tag me-2 text-primary"></i>Product Name *</label>
+                                    </div>
+                                    <div class="invalid-feedback" id="nameError"></div>
+                                </div>
+                                
+                                <!-- Category -->
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <select id="productCategory" name="productCategory" class="form-select border-2 shadow-sm" required style="background-color: #f8f9fa; border-color: #dee2e6;">
+                                            <option value="">Select Category</option>
+                                            <option value="smartphones">Smartphones</option>
+                                            <option value="laptops">Laptops</option>
+                                            <option value="accessories">Accessories</option>
+                                            <option value="audio">Audio</option>
+                                            <option value="tv">TV & Electronics</option>
+                                            <option value="tablets">Tablets</option>
+                                        </select>
+                                        <label for="productCategory"><i class="fas fa-list me-2 text-primary"></i>Category *</label>
+                                    </div>
+                                    <div class="invalid-feedback" id="categoryError"></div>
+                                </div>
+                                
+                                <!-- Price -->
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="number" id="productPrice" name="productPrice" class="form-control border-2 shadow-sm" min="1" placeholder="Price" required style="background-color: #f8f9fa; border-color: #dee2e6;">
+                                        <label for="productPrice"><i class="fas fa-rupee-sign me-2 text-primary"></i>Price (₹) *</label>
+                                    </div>
+                                    <div class="invalid-feedback" id="priceError"></div>
+                                </div>
+                                
+                                <!-- Stock Quantity -->
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="number" id="productStock" name="productStock" class="form-control border-2 shadow-sm" min="0" placeholder="Stock Quantity" required style="background-color: #f8f9fa; border-color: #dee2e6;">
+                                        <label for="productStock"><i class="fas fa-boxes me-2 text-primary"></i>Stock Quantity *</label>
+                                    </div>
+                                    <div class="invalid-feedback" id="stockError"></div>
+                                </div>
+
+                                <!-- Product Image Upload -->
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="file" id="productImage" name="productImage" class="form-control border-2 shadow-sm" accept="image/*" style="background-color: #f8f9fa; border-color: #dee2e6; padding-top: 1rem;">
+                                        <label for="productImage"><i class="fas fa-image me-2 text-primary"></i>Product Image</label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <i class="fas fa-info-circle me-1"></i>Upload a high-quality product image (JPG, PNG, max 5MB)
+                                    </div>
+                                </div>
+                                
+                                <!-- Product Description -->
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea id="productDescription" name="productDescription" class="form-control border-2 shadow-sm" style="height: 120px; background-color: #f8f9fa; border-color: #dee2e6;" placeholder="Product Description"></textarea>
+                                        <label for="productDescription"><i class="fas fa-align-left me-2 text-primary"></i>Product Description</label>
+                                    </div>
+                                    <div class="form-text text-muted">
+                                        <i class="fas fa-lightbulb me-1"></i>Provide detailed product features and specifications
+                                    </div>
+                                </div>
+
+                <div class="admin-grid">
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="productImage" name="productImage" class="form-control" placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="productStatus" name="productStatus" class="form-control">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                                
+                                <!-- Form Actions -->
+                                <div class="col-12">
+                                    <div class="border-top pt-4 mt-2">
+                                        <div class="d-flex gap-3 justify-content-end flex-wrap">
+                                            <button type="button" class="btn btn-outline-secondary px-4 py-2 shadow-sm" onclick="resetForm()">
+                                                <i class="fas fa-undo me-2"></i>Reset Form
+                                            </button>
+                                            <button type="submit" class="btn px-4 py-2 text-white fw-bold shadow" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); border: none;">
+                                                <i class="fas fa-plus me-2"></i>Add Product
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Product Preview -->
+            <div class="col-12 col-xl-5">
+                <div class="professional-card shadow-custom border-0">
+                    <div class="card-header text-white border-0" style="background: linear-gradient(135deg, #10b981 0%, #34d399 100%);">
+                        <h5 class="mb-0 fw-bold">
+                            <i class="fas fa-eye me-2"></i>Live Preview
+                        </h5>
+                    </div>
+                    <div class="card-body p-4" style="background: rgba(255, 255, 255, 0.95);">
+                        <div class="text-center">
+                            <div class="preview-image mb-4 mx-auto d-flex align-items-center justify-content-center shadow-sm" style="width: 180px; height: 180px; border: 3px dashed #3b82f6; border-radius: 16px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+                                <img src="assets/images/preview-placeholder.jpg" alt="Product Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" 
+                                     onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=&quot;fas fa-image fa-4x text-muted&quot;></i><p class=&quot;text-muted small mt-2 mb-0&quot;>Preview placeholder</p>';">
+                            </div>
+                            <div class="preview-details">
+                                <h4 id="previewName" class="fw-bold text-dark mb-3" style="color: #1e3a8a !important;">Product Name</h4>
+                                <p id="previewCategory" class="mb-3">
+                                    <span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); color: white; font-size: 0.9rem;">Category</span>
+                                </p>
+                                <p id="previewPrice" class="h3 fw-bold mb-3" style="color: #059669;">₹0</p>
+                                <div class="mb-3 p-3 rounded-3" style="background-color: #f1f5f9;">
+                                    <p id="previewStock" class="text-muted mb-0">
+                                        <i class="fas fa-boxes me-2 text-primary"></i>Stock: <span class="fw-bold text-dark">0 units</span>
+                                    </p>
+                                </div>
+                                <div class="text-start">
+                                    <p class="text-muted mb-2 fw-semibold">
+                                        <i class="fas fa-file-alt me-2 text-primary"></i>Description:
+                                    </p>
+                                    <p id="previewDescription" class="text-muted small p-3 rounded-3" style="background-color: #f8fafc; border-left: 4px solid #3b82f6; min-height: 60px;">Product description will appear here as you type...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Information Card -->
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Enhanced Professional Scripts -->
+    <script>
+        // Authentication and utility functions
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Check authentication on load
+        if (!localStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // Live Preview Functionality
+        function updatePreview() {
+            const name = document.getElementById('productName').value || 'Product Name';
+            const category = document.getElementById('productCategory').value || 'Category';
+            const price = document.getElementById('productPrice').value || '0';
+            const stock = document.getElementById('productStock').value || '0';
+            const description = document.getElementById('productDescription').value || 'Product description will appear here as you type...';
+
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewCategory').innerHTML = `<span class="badge rounded-pill px-3 py-2" style="background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%); color: white; font-size: 0.9rem;">${category}</span>`;
+            document.getElementById('previewPrice').textContent = `₹${parseInt(price).toLocaleString('en-IN')}`;
+            document.getElementById('previewStock').innerHTML = `<i class="fas fa-boxes me-2 text-primary"></i>Stock: <span class="fw-bold text-dark">${stock} units</span>`;
+            document.getElementById('previewDescription').textContent = description;
+            
+            // Update image alt text with product name
+            const previewImg = document.querySelector('.preview-image img');
+            if (previewImg) {
+                previewImg.alt = name + ' - Product Preview';
+            }
+        }
+
+        // Enhanced form validation
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+
+            const name = document.getElementById('productName').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const price = document.getElementById('productPrice').value;
+            const stock = document.getElementById('productStock').value;
+
+            if (!name) {
+                showError('productName', 'nameError', 'Product name is required');
+                isValid = false;
+            } else if (name.length < 3) {
+                showError('productName', 'nameError', 'Product name must be at least 3 characters');
+                isValid = false;
+            }
+
+            if (!category) {
+                showError('productCategory', 'categoryError', 'Please select a category');
+                isValid = false;
+            }
+
+            if (!price || price <= 0) {
+                showError('productPrice', 'priceError', 'Please enter a valid price');
+                isValid = false;
+            }
+
+            if (!stock || stock < 0) {
+                showError('productStock', 'stockError', 'Please enter a valid stock quantity');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Enhanced error handling
+        function showError(fieldId, errorId, message) {
+            const field = document.getElementById(fieldId);
+            const errorDiv = document.getElementById(errorId);
+            
+            field.classList.add('is-invalid');
+            field.style.borderColor = '#dc3545';
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function clearErrors() {
+            const fields = ['productName', 'productCategory', 'productPrice', 'productStock'];
+            const errors = ['nameError', 'categoryError', 'priceError', 'stockError'];
+            
+            fields.forEach(field => {
+                const element = document.getElementById(field);
+                element.classList.remove('is-invalid');
+                element.style.borderColor = '#dee2e6';
+            });
+            
+            errors.forEach(error => {
+                const element = document.getElementById(error);
+                element.textContent = '';
+                element.style.display = 'none';
+            });
+        }
+
+        // Enhanced form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Adding Product...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Success animation
+                submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Product Added!';
+                submitBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #34d399 100%)';
+                
+                // Show success notification
+                showNotification('Product added successfully!', 'success');
+                
+                // Reset form after delay
+                setTimeout(() => {
+                    resetForm();
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)';
+                    submitBtn.disabled = false;
+                }, 2000);
+            }, 1500);
+        }
+
+        // Enhanced reset function
+        function resetForm() {
+            document.getElementById('addProductForm').reset();
+            clearErrors();
+            updatePreview();
+            
+            // Reset file input preview to placeholder image
+            const previewImage = document.querySelector('.preview-image');
+            previewImage.innerHTML = '<img src="assets/images/preview-placeholder.jpg" alt="Product Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\\\"fas fa-image fa-4x text-muted\\\"></i><p class=\\\"text-muted small mt-2 mb-0\\\">Preview placeholder</p>\';">';
+        }
+
+        // Show notifications
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);';
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'} me-2"></i>${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 4000);
+        }
+
+        // Image preview functionality
+        document.getElementById('productImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const previewImage = document.querySelector('.preview-image');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                // Revert to placeholder image when no file is selected
+                previewImage.innerHTML = '<img src="assets/images/preview-placeholder.jpg" alt="Product Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<i class=\\\"fas fa-image fa-4x text-muted\\\"></i><p class=\\\"text-muted small mt-2 mb-0\\\">Preview placeholder</p>\';">';
+            }
+        });
+
+        // Initialize form interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add live preview listeners
+            ['productName', 'productCategory', 'productPrice', 'productStock', 'productDescription'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updatePreview);
+                    element.addEventListener('change', updatePreview);
+                }
+            });
+
+            // Add focus effects to form controls
+            const formControls = document.querySelectorAll('.form-control, .form-select');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    this.style.borderColor = '#3b82f6';
+                    this.style.boxShadow = '0 0 0 0.2rem rgba(59, 130, 246, 0.15)';
+                    this.style.backgroundColor = '#ffffff';
+                });
+                
+                control.addEventListener('blur', function() {
+                    this.style.borderColor = '#dee2e6';
+                    this.style.boxShadow = 'none';
+                    this.style.backgroundColor = '#f8f9fa';
+                });
+            });
+
+            // Initialize preview
+            updatePreview();
+        });
+    </script>
+</body>
+</html>

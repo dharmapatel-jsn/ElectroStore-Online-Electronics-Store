@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - ElectroStore Admin</title>
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/admin-style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="admin-sidebar">
+        <div class="sidebar-header">
+            <h4 class="text-white mb-0">
+                <i class="fas fa-bolt text-warning"></i>
+                ElectroStore Admin
+            </h4>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <div class="nav-item">
+                <a href="dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="products.html" class="nav-link">
+                    <i class="fas fa-box"></i>
+                    Products
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="orders.html" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    Orders
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="users.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="settings.html" class="nav-link active">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </div>
+            <hr class="border-secondary mx-3">
+            <div class="nav-item">
+                <a href="../Client Side/index.html" class="nav-link">
+                    <i class="fas fa-store"></i>
+                    Visit Store
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link" onclick="AdminPanel.logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="mb-0 text-gray-800">Settings</h2>
+                    <p class="text-muted mb-0">System configuration and admin profile management</p>
+                </div>
+                <button class="btn btn-primary btn-custom" onclick="saveAllSettings()">
+                    <i class="fas fa-save me-2"></i>Save All Changes
+                </button>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="admin-content">
+            <div class="row g-4">
+                <!-- Settings Navigation -->
+                <div class="col-lg-3">
+                    <div class="form-card">
+                        <h6 class="mb-3">Settings Categories</h6>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link active" id="profile-tab" data-bs-toggle="pill" href="#profile-settings">
+                                <i class="fas fa-user me-2"></i>Profile Settings
+                            </a>
+                            <a class="nav-link" id="store-tab" data-bs-toggle="pill" href="#store-settings">
+                                <i class="fas fa-store me-2"></i>Store Settings
+                            </a>
+                            <a class="nav-link" id="notification-tab" data-bs-toggle="pill" href="#notification-settings">
+                                <i class="fas fa-bell me-2"></i>Notifications
+                            </a>
+                            <a class="nav-link" id="security-tab" data-bs-toggle="pill" href="#security-settings">
+                                <i class="fas fa-shield-alt me-2"></i>Security
+                            </a>
+                            <a class="nav-link" id="system-tab" data-bs-toggle="pill" href="#system-settings">
+                                <i class="fas fa-cogs me-2"></i>System
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="col-lg-9">
+                    <div class="tab-content">
+                        <!-- Profile Settings -->
+                        <div class="tab-pane fade show active" id="profile-settings">
+                            <div class="form-card">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h5 class="mb-0">Profile Settings</h5>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                
+                                <form id="profileForm" onsubmit="saveProfile(event)">
+                                    <div class="row g-3">
+                                        <div class="col-12 text-center mb-4">
+                                            <img src="https://ui-avatars.com/api/?name=Admin+User&background=3b82f6&color=fff&size=100" 
+                                                 class="rounded-circle mb-3" width="100" height="100" alt="Admin Avatar" id="profileAvatar">
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="changeAvatar()">
+                                                    <i class="fas fa-camera me-2"></i>Change Photo
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="adminName">Full Name</label>
+                                                <input type="text" class="form-control" id="adminName" value="Admin User">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="adminEmail">Email Address</label>
+                                                <input type="email" class="form-control" id="adminEmail" value="admin@electrostore.com">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="adminPhone">Phone Number</label>
+                                                <input type="tel" class="form-control" id="adminPhone" value="9876543210">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="adminRole">Role</label>
+                                                <select class="form-select" id="adminRole">
+                                                    <option value="super-admin" selected>Super Admin</option>
+                                                    <option value="admin">Admin</option>
+                                                    <option value="manager">Manager</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="adminBio">Bio</label>
+                                                <textarea class="form-control" id="adminBio" rows="3" placeholder="Tell us about yourself...">ElectroStore system administrator with 5+ years of experience in e-commerce management.</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Store Settings -->
+                        <div class="tab-pane fade" id="store-settings">
+                            <div class="form-card">
+                                <h5 class="mb-4">Store Configuration</h5>
+                                
+                                <form id="storeForm" onsubmit="saveStoreSettings(event)">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeName">Store Name</label>
+                                                <input type="text" class="form-control" id="storeName" value="ElectroStore">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeTagline">Tagline</label>
+                                                <input type="text" class="form-control" id="storeTagline" value="Your Ultimate Electronics Store">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeDescription">Store Description</label>
+                                                <textarea class="form-control" id="storeDescription" rows="3">We provide the latest electronics at competitive prices with excellent customer service across India.</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeCurrency">Currency</label>
+                                                <select class="form-select" id="storeCurrency">
+                                                    <option value="INR" selected>Indian Rupee (₹)</option>
+                                                    <option value="USD">US Dollar ($)</option>
+                                                    <option value="EUR">Euro (€)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeTimezone">Timezone</label>
+                                                <select class="form-select" id="storeTimezone">
+                                                    <option value="Asia/Kolkata" selected>India Standard Time (IST)</option>
+                                                    <option value="America/New_York">Eastern Time (EST)</option>
+                                                    <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeEmail">Store Email</label>
+                                                <input type="email" class="form-control" id="storeEmail" value="support@electrostore.com">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storePhone">Store Phone</label>
+                                                <input type="tel" class="form-control" id="storePhone" value="+91-9876543210">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label" for="storeAddress">Store Address</label>
+                                                <textarea class="form-control" id="storeAddress" rows="3">123 Electronics Hub, Tech City, Rajkot, Gujarat - 360001, India</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="tab-pane fade" id="notification-settings">
+                            <div class="form-card">
+                                <h5 class="mb-4">Notification Preferences</h5>
+                                
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Order Notifications</h6>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="newOrderNotification" checked>
+                                            <label class="form-check-label" for="newOrderNotification">
+                                                New Order Alerts
+                                                <small class="text-muted d-block">Get notified when new orders are placed</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="orderStatusNotification" checked>
+                                            <label class="form-check-label" for="orderStatusNotification">
+                                                Order Status Updates
+                                                <small class="text-muted d-block">Notifications for order status changes</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="lowStockNotification" checked>
+                                            <label class="form-check-label" for="lowStockNotification">
+                                                Low Stock Alerts
+                                                <small class="text-muted d-block">Alert when products are running low on stock</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">User Notifications</h6>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="newUserNotification" checked>
+                                            <label class="form-check-label" for="newUserNotification">
+                                                New User Registrations
+                                                <small class="text-muted d-block">Get notified when new users register</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="userActivityNotification">
+                                            <label class="form-check-label" for="userActivityNotification">
+                                                User Activity Reports
+                                                <small class="text-muted d-block">Weekly user activity summaries</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">System Notifications</h6>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="systemUpdateNotification" checked>
+                                            <label class="form-check-label" for="systemUpdateNotification">
+                                                System Updates
+                                                <small class="text-muted d-block">Important system and security updates</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="backupNotification" checked>
+                                            <label class="form-check-label" for="backupNotification">
+                                                Backup Notifications
+                                                <small class="text-muted d-block">Data backup completion alerts</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Settings -->
+                        <div class="tab-pane fade" id="security-settings">
+                            <div class="form-card">
+                                <h5 class="mb-4">Security & Privacy</h5>
+                                
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Password Settings</h6>
+                                        <form id="passwordForm" onsubmit="changePassword(event)">
+                                            <div class="row g-3">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="currentPassword">Current Password</label>
+                                                        <input type="password" class="form-control" id="currentPassword" required>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="newPassword">New Password</label>
+                                                        <input type="password" class="form-control" id="newPassword" required minlength="8">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                                        <input type="password" class="form-control" id="confirmPassword" required>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-warning btn-custom">
+                                                        <i class="fas fa-key me-2"></i>Change Password
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="text-primary mb-3">Two-Factor Authentication</h6>
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                            <label class="form-check-label" for="twoFactorAuth">
+                                                Enable Two-Factor Authentication
+                                                <small class="text-muted d-block">Add an extra layer of security to your account</small>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-check form-switch mb-3">
+                                            <input class="form-check-input" type="checkbox" id="loginNotifications" checked>
+                                            <label class="form-check-label" for="loginNotifications">
+                                                Login Notifications
+                                                <small class="text-muted d-block">Get notified of login attempts</small>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="text-primary mb-3">Session Management</h6>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Active Sessions</strong>
+                                                <small class="text-muted d-block">Manage your active login sessions</small>
+                                            </div>
+                                            <button class="btn btn-outline-danger btn-sm" onclick="logoutAllSessions()">
+                                                <i class="fas fa-sign-out-alt me-2"></i>Logout All
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Settings -->
+                        <div class="tab-pane fade" id="system-settings">
+                            <div class="form-card">
+                                <h5 class="mb-4">System Configuration</h5>
+                                
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <h6 class="text-primary mb-3">Data Management</h6>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="card border-primary">
+                                                    <div class="card-body text-center">
+                                                        <i class="fas fa-download fa-2x text-primary mb-3"></i>
+                                                        <h6>Export Data</h6>
+                                                        <p class="text-muted small">Download all store data</p>
+                                                        <button class="btn btn-primary btn-sm" onclick="exportData()">
+                                                            Export Now
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-6">
+                                                <div class="card border-success">
+                                                    <div class="card-body text-center">
+                                                        <i class="fas fa-shield-alt fa-2x text-success mb-3"></i>
+                                                        <h6>Backup Data</h6>
+                                                        <p class="text-muted small">Create system backup</p>
+                                                        <button class="btn btn-success btn-sm" onclick="createBackup()">
+                                                            Backup Now
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="text-primary mb-3">System Information</h6>
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <td><strong>System Version:</strong></td>
+                                                <td>ElectroStore v2.1.0</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Last Updated:</strong></td>
+                                                <td>November 10, 2025</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Database Size:</strong></td>
+                                                <td>2.4 MB</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Total Products:</strong></td>
+                                                <td id="systemProductCount">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Total Orders:</strong></td>
+                                                <td id="systemOrderCount">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Total Users:</strong></td>
+                                                <td id="systemUserCount">0</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <hr>
+                                        <h6 class="text-danger mb-3">Danger Zone</h6>
+                                        <div class="alert alert-danger">
+                                            <h6 class="alert-heading">Reset System Data</h6>
+                                            <p class="mb-3">This will permanently delete all products, orders, and users. This action cannot be undone.</p>
+                                            <button class="btn btn-danger btn-sm" onclick="resetSystemData()">
+                                                <i class="fas fa-trash me-2"></i>Reset All Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/admin-functions.js"></script>
+    
+    <script>
+        // Settings page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSystemInfo();
+            loadSavedSettings();
+        });
+
+        function loadSystemInfo() {
+            const products = AdminPanel.getSampleProducts();
+            const orders = AdminPanel.getSampleOrders();
+            const users = AdminPanel.getSampleUsers();
+            
+            document.getElementById('systemProductCount').textContent = products.length;
+            document.getElementById('systemOrderCount').textContent = orders.length;
+            document.getElementById('systemUserCount').textContent = users.length;
+        }
+
+        function loadSavedSettings() {
+            // Load saved settings from localStorage
+            const savedSettings = JSON.parse(localStorage.getItem('adminSettings')) || {};
+            
+            // Apply saved settings to form fields
+            Object.keys(savedSettings).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        element.checked = savedSettings[key];
+                    } else {
+                        element.value = savedSettings[key];
+                    }
+                }
+            });
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                const profileData = {
+                    adminName: document.getElementById('adminName').value,
+                    adminEmail: document.getElementById('adminEmail').value,
+                    adminPhone: document.getElementById('adminPhone').value,
+                    adminRole: document.getElementById('adminRole').value,
+                    adminBio: document.getElementById('adminBio').value
+                };
+                
+                // Save to localStorage
+                const currentSettings = JSON.parse(localStorage.getItem('adminSettings')) || {};
+                localStorage.setItem('adminSettings', JSON.stringify({...currentSettings, ...profileData}));
+                
+                AdminPanel.showNotification('Profile updated successfully!');
+                AdminPanel.showLoading(false);
+            }, 1000);
+        }
+
+        function saveStoreSettings(event) {
+            event.preventDefault();
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                const storeData = {
+                    storeName: document.getElementById('storeName').value,
+                    storeTagline: document.getElementById('storeTagline').value,
+                    storeDescription: document.getElementById('storeDescription').value,
+                    storeCurrency: document.getElementById('storeCurrency').value,
+                    storeTimezone: document.getElementById('storeTimezone').value,
+                    storeEmail: document.getElementById('storeEmail').value,
+                    storePhone: document.getElementById('storePhone').value,
+                    storeAddress: document.getElementById('storeAddress').value
+                };
+                
+                // Save to localStorage
+                const currentSettings = JSON.parse(localStorage.getItem('adminSettings')) || {};
+                localStorage.setItem('adminSettings', JSON.stringify({...currentSettings, ...storeData}));
+                
+                AdminPanel.showNotification('Store settings updated successfully!');
+                AdminPanel.showLoading(false);
+            }, 1000);
+        }
+
+        function saveAllSettings() {
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                const allSettings = {};
+                
+                // Collect all form data
+                const forms = ['profileForm', 'storeForm'];
+                forms.forEach(formId => {
+                    const form = document.getElementById(formId);
+                    if (form) {
+                        const formData = new FormData(form);
+                        const inputs = form.querySelectorAll('input, select, textarea');
+                        inputs.forEach(input => {
+                            if (input.type === 'checkbox') {
+                                allSettings[input.id] = input.checked;
+                            } else {
+                                allSettings[input.id] = input.value;
+                            }
+                        });
+                    }
+                });
+                
+                // Collect notification settings
+                const checkboxes = document.querySelectorAll('#notification-settings input[type="checkbox"], #security-settings input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    allSettings[checkbox.id] = checkbox.checked;
+                });
+                
+                localStorage.setItem('adminSettings', JSON.stringify(allSettings));
+                
+                AdminPanel.showNotification('All settings saved successfully!');
+                AdminPanel.showLoading(false);
+            }, 1500);
+        }
+
+        function changePassword(event) {
+            event.preventDefault();
+            
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (newPassword !== confirmPassword) {
+                AdminPanel.showNotification('New passwords do not match!', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 8) {
+                AdminPanel.showNotification('Password must be at least 8 characters!', 'error');
+                return;
+            }
+            
+            // Simple validation - in real app, verify current password
+            if (currentPassword !== 'admin123') {
+                AdminPanel.showNotification('Current password is incorrect!', 'error');
+                return;
+            }
+            
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                // In a real app, this would update the password in the database
+                AdminPanel.showNotification('Password changed successfully!');
+                document.getElementById('passwordForm').reset();
+                AdminPanel.showLoading(false);
+            }, 1000);
+        }
+
+        function changeAvatar() {
+            const name = document.getElementById('adminName').value || 'Admin User';
+            const colors = ['3b82f6', '10b981', 'f59e0b', 'ef4444', '8b5cf6', '06b6d4'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            const newAvatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${randomColor}&color=fff&size=100`;
+            document.getElementById('profileAvatar').src = newAvatarUrl;
+            
+            AdminPanel.showNotification('Avatar updated!', 'success');
+        }
+
+        function logoutAllSessions() {
+            if (confirm('Are you sure you want to logout from all devices? You will need to login again.')) {
+                AdminPanel.showLoading();
+                
+                setTimeout(() => {
+                    AdminPanel.showNotification('Logged out from all sessions!');
+                    AdminPanel.showLoading(false);
+                    
+                    // Simulate logout after 2 seconds
+                    setTimeout(() => {
+                        AdminPanel.logout();
+                    }, 2000);
+                }, 1000);
+            }
+        }
+
+        function exportData() {
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                const data = {
+                    products: AdminPanel.getSampleProducts(),
+                    orders: AdminPanel.getSampleOrders(),
+                    users: AdminPanel.getSampleUsers(),
+                    settings: JSON.parse(localStorage.getItem('adminSettings')) || {},
+                    exportDate: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(data, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(dataBlob);
+                link.download = `electrostore-data-${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                AdminPanel.showNotification('Data exported successfully!');
+                AdminPanel.showLoading(false);
+            }, 1000);
+        }
+
+        function createBackup() {
+            AdminPanel.showLoading();
+            
+            setTimeout(() => {
+                const backupData = {
+                    products: AdminPanel.getSampleProducts(),
+                    orders: AdminPanel.getSampleOrders(),
+                    users: AdminPanel.getSampleUsers(),
+                    settings: JSON.parse(localStorage.getItem('adminSettings')) || {},
+                    backupDate: new Date().toISOString(),
+                    version: '2.1.0'
+                };
+                
+                localStorage.setItem('electrostore-backup', JSON.stringify(backupData));
+                
+                AdminPanel.showNotification('Backup created successfully!');
+                AdminPanel.showLoading(false);
+            }, 1500);
+        }
+
+        function resetSystemData() {
+            const confirmation = prompt('Type "RESET" to confirm you want to delete all data:');
+            
+            if (confirmation === 'RESET') {
+                AdminPanel.showLoading();
+                
+                setTimeout(() => {
+                    // Clear all data
+                    localStorage.removeItem('adminProducts');
+                    localStorage.removeItem('adminOrders');
+                    localStorage.removeItem('adminUsers');
+                    localStorage.removeItem('adminSettings');
+                    
+                    AdminPanel.showNotification('All system data has been reset!', 'success');
+                    AdminPanel.showLoading(false);
+                    
+                    // Reload page after 2 seconds
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }, 1000);
+            } else if (confirmation !== null) {
+                AdminPanel.showNotification('Reset cancelled - incorrect confirmation text!', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

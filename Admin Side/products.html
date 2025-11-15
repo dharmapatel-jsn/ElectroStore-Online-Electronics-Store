@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - ElectroStore Admin</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="assets/css/admin-style.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100">
+    <!-- Professional Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg" style="background: linear-gradient(135deg, #146eff 0%, #146eff 50%, #146eff 100%);">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="dashboard.html">
+                <i class="fas fa-bolt text-warning me-2 fs-4"></i>
+                <span class="text-white">ElectroStore Admin</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="dashboard.html">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2 active" href="products.html">
+                            <i class="fas fa-box me-1"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="add-product.html">
+                            <i class="fas fa-plus-circle me-1"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="orders.html">
+                            <i class="fas fa-shopping-cart me-1"></i> Orders
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="users.html">
+                            <i class="fas fa-users me-1"></i> Users
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="../Client Side/index.html" target="_blank">
+                            <i class="fas fa-store me-1"></i> Visit Store
+                        </a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="nav-link px-3 py-2" href="#" onclick="logout()">
+                            <i class="fas fa-sign-out-alt me-1"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Professional Main Content -->
+    <div class="container-fluid py-4">
+        <!-- Page Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="professional-card shadow-custom border-0">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h2 class="h4 fw-bold mb-1 text-dark">Product Management</h2>
+                                <p class="text-muted mb-0">Manage your product inventory and details</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a href="add-product.html" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm">
+                                    <i class="fas fa-plus me-2"></i> Add New Product
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="professional-card shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="text" id="searchProduct" class="form-control border-0 bg-light" placeholder="Search products...">
+                                    <label for="searchProduct"><i class="fas fa-search me-2"></i>Search products...</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <select id="categoryFilter" class="form-select border-0 bg-light">
+                                        <option value="">All Categories</option>
+                                        <option value="smartphones">Smartphones</option>
+                                        <option value="laptops">Laptops</option>
+                                        <option value="accessories">Accessories</option>
+                                        <option value="audio">Audio</option>
+                                    </select>
+                                    <label for="categoryFilter"><i class="fas fa-tags me-2"></i>Category</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <select id="statusFilter" class="form-select border-0 bg-light">
+                                        <option value="">All Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="out-of-stock">Out of Stock</option>
+                                    </select>
+                                    <label for="statusFilter"><i class="fas fa-filter me-2"></i>Status</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-outline-primary w-100 h-100 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-sync-alt me-2"></i>Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Products Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="professional-card shadow-sm border-0">
+                    <div class="card-header bg-gradient-primary text-white border-0">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold">
+                                <i class="fas fa-boxes me-2"></i>All Products
+                            </h5>
+                            <span class="badge bg-light text-primary fs-6">
+                                Total: <span id="totalProducts" class="fw-bold">12</span> products
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="border-0 fw-bold text-uppercase">Product</th>
+                                        <th class="border-0 fw-bold text-uppercase">Category</th>
+                                        <th class="border-0 fw-bold text-uppercase">Price</th>
+                                        <th class="border-0 fw-bold text-uppercase">Stock</th>
+                                        <th class="border-0 fw-bold text-uppercase">Status</th>
+                                        <th class="border-0 fw-bold text-uppercase">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTable">
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../Client Side/assets/images/products/iphone-15-pro.jpg" 
+                                                     alt="iPhone 15 Pro" 
+                                                     class="rounded-3 me-3 shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">iPhone 15 Pro</h6>
+                                                    <small class="text-muted">Latest Apple smartphone</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-info text-dark rounded-pill">Smartphones</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="fw-bold text-success">₹1,29,999</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-success rounded-pill">25 in stock</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="status-box status-active">
+                                                <i class="fas fa-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="editProduct(1)" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(1)" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../Client Side/assets/images/products/macbook-air.jpg" 
+                                                     alt="MacBook Air M2" 
+                                                     class="rounded-3 me-3 shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">MacBook Air M2</h6>
+                                                    <small class="text-muted">13-inch laptop with M2 chip</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-warning text-dark rounded-pill">Laptops</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="fw-bold text-success">₹1,14,900</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-success rounded-pill">15 in stock</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="status-box status-active">
+                                                <i class="fas fa-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="editProduct(2)" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(2)" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../Client Side/assets/images/products/samsung-s24.jpg" 
+                                                     alt="Samsung Galaxy S24" 
+                                                     class="rounded-3 me-3 shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">Samsung Galaxy S24</h6>
+                                                    <small class="text-muted">Latest Samsung flagship</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-info text-dark rounded-pill">Smartphones</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="fw-bold text-success">₹74,999</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-danger rounded-pill">0 in stock</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="status-box status-out-of-stock">
+                                                <i class="fas fa-circle me-1"></i>Out of Stock
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="editProduct(3)" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(3)" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../Client Side/assets/images/products/sony-headphones.jpg" 
+                                                     alt="Sony WH-1000XM4" 
+                                                     class="rounded-3 me-3 shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">Sony WH-1000XM4</h6>
+                                                    <small class="text-muted">Noise cancelling headphones</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-primary text-white rounded-pill">Audio</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="fw-bold text-success">₹29,990</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-success rounded-pill">30 in stock</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="status-box status-active">
+                                                <i class="fas fa-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="editProduct(4)" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(4)" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-middle">
+                                            <div class="d-flex align-items-center">
+                                                <img src="../Client Side/assets/images/products/dell-laptop.jpg" 
+                                                     alt="Dell XPS 13" 
+                                                     class="rounded-3 me-3 shadow-sm" 
+                                                     style="width: 60px; height: 60px; object-fit: cover;">
+                                                <div>
+                                                    <h6 class="mb-1 fw-bold">Dell XPS 13</h6>
+                                                    <small class="text-muted">Premium ultrabook</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-warning text-dark rounded-pill">Laptops</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="fw-bold text-success">₹89,999</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-warning text-dark rounded-pill">8 in stock</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="status-box status-active">
+                                                <i class="fas fa-circle me-1"></i>Active
+                                            </span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <div class="btn-group" role="group">
+                                                <button class="btn btn-outline-primary btn-sm" onclick="editProduct(5)" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct(5)" title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Professional Scripts -->
+    <script>
+        // Professional authentication check
+        function checkAuth() {
+            if (!localStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        // Professional logout with confirmation
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Enhanced edit product function
+        function editProduct(id) {
+            // In a real app, this would open a modal or redirect to edit page
+            const productRow = document.querySelector(`button[onclick="editProduct(${id})"]`).closest('tr');
+            const productName = productRow.querySelector('h6').textContent;
+            
+            if (confirm(`Edit product: ${productName}?\n\nThis would normally open an edit form.`)) {
+                // Add loading effect
+                const btn = event.target.closest('button');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-edit"></i>';
+                    alert('Edit form would open here in a real application.');
+                }, 1000);
+            }
+        }
+
+        // Enhanced delete product function
+        function deleteProduct(id) {
+            const productRow = document.querySelector(`button[onclick="deleteProduct(${id})"]`).closest('tr');
+            const productName = productRow.querySelector('h6').textContent;
+            
+            if (confirm(`Are you sure you want to delete "${productName}"?\n\nThis action cannot be undone.`)) {
+                // Add fade out animation
+                productRow.style.transition = 'opacity 0.5s ease';
+                productRow.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    productRow.remove();
+                    updateProductCount();
+                    showNotification('Product deleted successfully', 'success');
+                }, 500);
+            }
+        }
+
+        // Update product count
+        function updateProductCount() {
+            const count = document.querySelectorAll('#productsTable tr').length;
+            document.getElementById('totalProducts').textContent = count;
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'info'} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 3000);
+        }
+
+        // Professional search functionality
+        document.getElementById('searchProduct').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#productsTable tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const productName = row.querySelector('h6')?.textContent.toLowerCase() || '';
+                const productDescription = row.querySelector('small')?.textContent.toLowerCase() || '';
+                
+                if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            // Update visible count
+            const totalSpan = document.getElementById('totalProducts');
+            totalSpan.textContent = searchTerm ? visibleCount : rows.length;
+        });
+
+        // Professional filter functionality
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            const category = this.value.toLowerCase();
+            filterProducts();
+        });
+
+        document.getElementById('statusFilter').addEventListener('change', function() {
+            filterProducts();
+        });
+
+        // Combined filter function
+        function filterProducts() {
+            const category = document.getElementById('categoryFilter').value.toLowerCase();
+            const status = document.getElementById('statusFilter').value.toLowerCase();
+            const searchTerm = document.getElementById('searchProduct').value.toLowerCase();
+            const rows = document.querySelectorAll('#productsTable tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const productCategory = row.querySelector('.badge')?.textContent.toLowerCase() || '';
+                const statusElement = row.querySelector('.status-box');
+                const productStatus = statusElement?.className.includes('status-active') ? 'active' :
+                                   statusElement?.className.includes('status-inactive') ? 'inactive' :
+                                   statusElement?.className.includes('status-out-of-stock') ? 'out-of-stock' : '';
+                const productName = row.querySelector('h6')?.textContent.toLowerCase() || '';
+                
+                const matchesCategory = category === '' || productCategory.includes(category);
+                const matchesStatus = status === '' || productStatus === status;
+                const matchesSearch = searchTerm === '' || productName.includes(searchTerm);
+                
+                if (matchesCategory && matchesStatus && matchesSearch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('totalProducts').textContent = visibleCount;
+        }
+
+        // Reset filters
+        document.querySelector('.btn-outline-primary').addEventListener('click', function() {
+            document.getElementById('searchProduct').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            filterProducts();
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            
+            // Add hover effects to table rows
+            const rows = document.querySelectorAll('#productsTable tr');
+            rows.forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(0, 123, 255, 0.05)';
+                });
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
